@@ -29,11 +29,12 @@ pivot_longer(c(minQVD, `10ug/mL QVD`, `100ug/ml QVD`, `20mg/kg QVD`),
 
 a <- ggplot(graph, aes(x = Time, y = reading, color = condition))
 
-b <- a + geom_point() + geom_rug()
+b <- a + geom_smooth() +
+  facet_wrap(~condition, nrow = 2)
 
-b + theme_minimal()
+c <- b + geom_rug(color = "grey50")
 
-
+c + theme_minimal()
 
 
 
