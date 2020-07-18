@@ -2,6 +2,7 @@
 ##Open Library
 library(tidyverse)
 library(RColorBrewer)
+
 ?RColorBrewer
 display.brewer.all()
 
@@ -11,7 +12,7 @@ GC_lac <- as.tibble(OD600_LAC)
 GC_lac
 view(GC_lac)
 
-##Select columns to plot
+##Select columns to plot----
  
 plot <- GC_lac %>%
   select(Time, minQVD, `10ug/mL QVD`, `100ug/ml QVD`, `20mg/kg QVD`)
@@ -26,8 +27,18 @@ pivot_longer(c(minQVD, `10ug/mL QVD`, `100ug/ml QVD`, `20mg/kg QVD`),
              )
 #graph ggplot
 
-a <- ggplot(graph, aes(x = Time, y = reading))
+a <- ggplot(graph, aes(x = Time, y = reading, color = condition))
 
 b <- a + geom_point() + geom_rug()
 
 b + theme_minimal()
+
+
+
+
+
+
+
+
+
+
