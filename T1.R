@@ -42,6 +42,7 @@ Figure1A <- a + geom_smooth(method = "loess", size = 2) +
 Figure1
 Figure1A + theme(legend.position = "top")
 
+
 ##Using mutate to calculate mean----
 
 ##Calculate mean and add new column with values 
@@ -74,9 +75,8 @@ FigureA1 <- lacfig + geom_smooth(method = "loess", size = 2) +
 Figure1A + theme(legend.position = "top")
 
 
-##--------------$$---------------CFU DATA------------------------$$----
 
-##CFU data to plot----
+##---------------$----$CFU data to plot------------$$------
 
 CFU_lac
 
@@ -109,6 +109,105 @@ Fig1Bb <- Fig1B + geom_boxplot(data = NULL, width=0.1)
 
 ##View figure drawn
 Fig1Bb + theme(legend.position = "none")
+
+
+
+
+
+
+
+
+
+##---------------$$--------------Xen20--------------$$-----
+
+## Calculate average and add new columns 
+
+Xen20 <- OD600_Xen20 %>%
+  mutate(minQVD_X2 = c(`Xen20 - QVDOPH` + `Xen20 - QVDOPH_1` + `Xen20 - QVDOPH_2`) / 3) %>%
+  mutate(tenQVD_X2 = c(`Xen20 +10ug/mL QVDOPH` + `Xen20 +10ug/mL QVDOPH_1` + `Xen20 +10ug/mL QVDOPH_2`) / 3) %>%
+  mutate(hundQVD_X2 = c(`Xen20 + 100ug/mL QVDOPH` + `Xen20 + 100ug/mL QVDOPH_1` + `Xen20 + 100ug/mL QVDOPH_2`) / 3) %>%
+  mutate(twent_X2 = c(`Xen20 + 20mg/Kg (35gms) QVDOPH` + `Xen20 + 20mg/Kg (35gms) QVDOPH_1` + `Xen20 + 20mg/Kg (35gms) QVDOPH_2`) / 3)
+
+Xen20  
+
+##Preparing sub-table for plotting graph
+
+Xen20_graph <- Xen20 %>%
+  select(`Time (hrs)`, minQVD_X2, tenQVD_X2, hundQVD_X2, twent_X2)
+
+Xen20_graph
+
+##Pivot long for graph
+
+ggXen20 <- Xen20_graph %>%
+  pivot_longer(c(minQVD_X2, tenQVD_X2, hundQVD_X2, twent_X2), 
+               names_to = "condition", values_to = "reading")
+
+ggXen20
+
+##Graphing
+Xen20fig <- ggplot(ggXen20, aes(x = `Time (hrs)`, y = reading, color = condition)) +
+  scale_y_continuous(limits = c(-0.1, 1.0))
+
+
+FigureD1 <- Xen20fig + geom_smooth (size = 2) +
+  geom_rug(color = "grey50") +
+  theme_minimal()
+
+##View graph
+FigureD1 + theme(legend.position = "top")
+
+
+
+##---------------$$--------------Xen41--------------$$-----
+
+## Calculate average and add new columns 
+
+Xen41 <- OD600_Xen41 %>%
+  mutate(minQVDX4 = c(`Xen41 - QVDOPH` + `Xen41 - QVDOPH_1`+ `Xen41 - QVDOPH_2`) / 3) %>%
+  mutate(tenQVDX4 = c(`Xen41 +10ug/mL QVDOPH`+ `Xen41 +10ug/mL QVDOPH_1`+ `Xen41 +10ug/mL QVDOPH_2`) / 3) %>%
+  mutate(hundQVDX4 = c(`Xen41 +100ug/mL QVDOPH`+ `Xen41 +100ug/mL QVDOPH_1` + `Xen41 +100ug/mL QVDOPH_2`) / 3) %>%
+  mutate(twentX4 = c(`Xen41 + 20mg/kg (35gms) QVDOPH` + `Xen41 + 20mg/kg (35gms) QVDOPH_1`+ `Xen41 + 20mg/kg (35gms) QVDOPH_2`) / 3)
+ 
+
+Xen41  
+
+##Preparing sub-table for plotting graph
+
+Xen41_graph <- Xen41 %>%
+  select(`Time (hrs)`, minQVDX4, tenQVDX4, hundQVDX4, twentX4)
+
+Xen41_graph
+
+##Pivot long for graph
+
+ggXen41 <- Xen41_graph %>%
+  pivot_longer(c(minQVDX4, tenQVDX4, hundQVDX4, twentX4), 
+               names_to = "condition", values_to = "reading")
+
+
+##Graphing
+Xen41fig <- ggplot(ggXen41, aes(x = `Time (hrs)`, y = reading, color = condition))
+
+
+FigureF1 <- Xen41fig + geom_smooth (size = 2) +
+  geom_rug(color = "grey50") +
+  theme_minimal()
+
+##View graph
+FigureF1 + theme(legend.position = "top")
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
