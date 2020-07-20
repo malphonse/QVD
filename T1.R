@@ -44,7 +44,7 @@ Figure1A + theme(legend.position = "top")
 
 ##Using mutate to calculate mean----
 
-##Calcuate mean and add new column with values 
+##Calculate mean and add new column with values 
 av <- OD600_LAC %>%
   mutate(minusQVD = c(`LAC::lux - QVDOPH` + `LAC::lux - QVDOPH_1` +`LAC::lux - QVDOPH_2`)/ 3 ) %>%
   mutate(`10ugQVD` = c(`LAC::lux +10ug/mL QVDOPH` + `LAC::lux +10ug/mL QVDOPH_1` + `LAC::lux +10ug/mL QVDOPH_2`)/3 ) %>%
@@ -74,6 +74,41 @@ FigureA1 <- lacfig + geom_smooth(method = "loess", size = 2) +
 Figure1A + theme(legend.position = "top")
 
 
+##--------------$$---------------CFU DATA------------------------$$----
+
+##CFU data to plot----
+
+CFU_lac
+
+##Pivot long to graph:
+
+CFU <- CFU_lac %>%
+  pivot_longer(c(`LAC::lux - QVDOPH`, `LAC::lux +10ug/mL QVDOPH`, `LAC::lux +100ug/mL QVDOPH`, `LAC::lux + 20mg/kg (35gms) QVDOPH`), 
+               names_to = "Tx", values_to = "CFU_count")
+##View CFU
+CFU
+
+##Arrange the data table by labels:
+CFU %>% arrange(Tx)
+ 
+##Create graph with x and y axis organized:
+CFU_graph <- ggplot(CFU, aes(Tx, CFU_count, fill = Tx)) +
+  scale_x_discrete(limits = c("LAC::lux - QVDOPH",
+  "LAC::lux +10ug/mL QVDOPH",
+  "LAC::lux +100ug/mL QVDOPH", 
+  "LAC::lux + 20mg/kg (35gms) QVDOPH")) +
+  scale_y_continuous(limits = c(0,1.5e+09))
+
+##Graphing the table
+Fig1B <- CFU_graph + geom_violin(size = 0.25, trim = "FALSE", alpha=0.5, show.legend = FALSE) + 
+  geom_rug(color = "grey50") +
+  geom_point(shape = 21, size = 7, position = "jitter") +
+  theme_minimal()
+
+Fig1Bb <- Fig1B + geom_boxplot(data = NULL, width=0.1)
+
+##View figure drawn
+Fig1Bb + theme(legend.position = "none")
 
 
 
