@@ -43,7 +43,7 @@ Figure1
 Figure1A + theme(legend.position = "top")
 
 
-##Using mutate to calculate mean----
+##---------------$---------------lac----------------$$-----
 
 ##Calculate mean and add new column with values 
 av <- OD600_LAC %>%
@@ -67,7 +67,7 @@ renderav_graph <- av_graph %>%
 lacfig <- ggplot(renderav_graph, aes(x = Time, y = reading, color = condition))
 
 
-FigureA1 <- lacfig + geom_smooth(method = "loess", size = 2) +
+FigureA1 <- lacfig + geom_smooth(size = 2, span = 0.5) +
   geom_rug(color = "grey50") +
   theme_minimal()
 
@@ -76,7 +76,7 @@ Figure1A + theme(legend.position = "top")
 
 
 
-##---------------$----$CFU data to plot------------$$------
+##---------------$$----$CFU data to plot------------$$------
 
 CFU_lac
 
@@ -118,7 +118,7 @@ Fig1Bb + theme(legend.position = "none")
 
 
 
-##---------------$$--------------Xen20--------------$$-----
+##---------------$$$--------------Xen20--------------$$-----
 
 ## Calculate average and add new columns 
 
@@ -146,11 +146,11 @@ ggXen20 <- Xen20_graph %>%
 ggXen20
 
 ##Graphing
-Xen20fig <- ggplot(ggXen20, aes(x = `Time (hrs)`, y = reading, color = condition)) +
-  scale_y_continuous(limits = c(-0.1, 1.0))
+Xen20fig <- ggplot(ggXen20, aes(x = `Time (hrs)`, y = reading, color = condition))
+  
 
 
-FigureD1 <- Xen20fig + geom_smooth (size = 2) +
+FigureD1 <- Xen20fig + geom_smooth(size = 2, span = 0.5) +
   geom_rug(color = "grey50") +
   theme_minimal()
 
@@ -159,7 +159,7 @@ FigureD1 + theme(legend.position = "top")
 
 
 
-##---------------$$--------------Xen41--------------$$-----
+##---------------$$$$--------------Xen41--------------$$-----
 
 ## Calculate average and add new columns 
 
@@ -187,15 +187,20 @@ ggXen41 <- Xen41_graph %>%
 
 
 ##Graphing
-Xen41fig <- ggplot(ggXen41, aes(x = `Time (hrs)`, y = reading, color = condition))
+Xen41fig <- ggplot(ggXen41, aes(x = `Time (hrs)`, y = reading, color = condition)) 
 
 
-FigureF1 <- Xen41fig + geom_smooth (size = 2) +
+FigureF1 <- Xen41fig + geom_smooth (size = 2,span = 0.5) +
   geom_rug(color = "grey50") +
   theme_minimal()
 
 ##View graph
 FigureF1 + theme(legend.position = "top")
+
+
+
+
+
 
 
 
