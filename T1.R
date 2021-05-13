@@ -58,10 +58,17 @@ av
 av_graph <- av %>%
   select(`Time`, minusQVD, `10ugQVD`, `100ugQVD`, `20mgQVD`)
 
+##view av_graph
+
+av_graph
+
 ##Pivot the coloumns for graph
 renderav_graph <- av_graph %>%
   pivot_longer(c(minusQVD, `10ugQVD`, `100ugQVD`, `20mgQVD`), 
                names_to = "condition", values_to = "reading")
+##View renderav_graph
+
+renderav_graph
 
 ##Graphing
 lacfig <- ggplot(renderav_graph, aes(x = Time, y = reading, color = condition))
@@ -120,6 +127,10 @@ Fig1Bb + theme(legend.position = "none")
 
 ##---------------$$$--------------Xen20--------------$$-----
 
+##View table
+
+OD600_Xen20
+
 ## Calculate average and add new columns 
 
 Xen20 <- OD600_Xen20 %>%
@@ -145,10 +156,13 @@ ggXen20 <- Xen20_graph %>%
 
 ggXen20
 
+##Arrange ggXen20
+
+ggXen20 %>% arrange(condition)
+
 ##Graphing
 Xen20fig <- ggplot(ggXen20, aes(x = `Time (hrs)`, y = reading, color = condition))
   
-
 
 FigureD1 <- Xen20fig + geom_smooth(size = 2, span = 0.5) +
   geom_rug(color = "grey50") +
